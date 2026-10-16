@@ -1,10 +1,8 @@
 name: New-term radar
 
-# Two schedules, one state:
-#   sources  every 8 hours: X and Hugging Face, where a name is said first. Posts a
-#            report only when there is a new name.
-#   daily    once a day: everything else, the review of leads from 14 days ago, and the
-#            source leads of the last day.
+# This fork: `daily` twice a day (08:00 and 18:00 Beijing time), X and Hugging Face
+# included, no separate `sources` run. New sites are skipped (the AIsa whois filter is
+# broken upstream since 2026-10-06).
 #
 # Off until you opt in: set the repository variable RADAR_ENABLED to "true"
 # (Settings > Secrets and variables > Actions > Variables), add the secret AISA_API_KEY,
@@ -21,8 +19,8 @@ name: New-term radar
 
 on:
   schedule:
-    - cron: "0 0,8,16 * * *"   # sources
-    - cron: "30 1 * * *"       # daily
+    - cron: "0 0 * * *"    # daily, 08:00 Beijing
+    - cron: "0 10 * * *"   # daily, 18:00 Beijing
   workflow_dispatch:
     inputs:
       command:
@@ -42,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      COMMAND: ${{ github.event.inputs.command || (github.event.schedule == '30 1 * * *' && 'daily' || 'sources') }}
+      COMMAND: ${{ github.event.inputs.command || 'daily' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -70,7 +68,7 @@ jobs:
           RADAR_EMAIL_TO: ${{ secrets.RADAR_EMAIL_TO }}
         run: |
           if [ "$COMMAND" = "daily" ]; then
-            python -m radar daily --skip x,hf --out report.md ${RADAR_EMAIL_TO:+--mail}
+            python -m radar daily --skip newsites --out report.md ${RADAR_EMAIL_TO:+--mail}
           else
             python -m radar sources --out report.md ${RADAR_EMAIL_TO:+--mail}
           fi
