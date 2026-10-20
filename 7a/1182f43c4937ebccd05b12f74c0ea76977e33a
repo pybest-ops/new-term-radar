@@ -1,0 +1,22 @@
+config.json
+  s_31391976c272c3::t_11306a4be2b123 5
+.github/workflows/radar.yml
+  s_31391976c272c3::t_381b4dc0569da3 70-71,74
+  s_31391976c272c3::t_6c9f9a67308532 5-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "7a1182f43c4937ebccd05b12f74c0ea76977e33a",
+  "prompts": {},
+  "sessions": {
+    "s_31391976c272c3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d4669f21-e917-4ea3-90d4-d375be460e20",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "muyun <muyun@tsign.cn>"
+    }
+  }
+}
