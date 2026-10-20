@@ -1,0 +1,19 @@
+.github/workflows/radar.yml
+  s_31391976c272c3::t_248320d80a8dcc 3,22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "786d5791842a3ce7209289aa343015165bb0aa19",
+  "prompts": {},
+  "sessions": {
+    "s_31391976c272c3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d4669f21-e917-4ea3-90d4-d375be460e20",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "muyun <muyun@tsign.cn>"
+    }
+  }
+}
