@@ -1,6 +1,6 @@
 name: New-term radar
 
-# This fork: `sources` (X and Hugging Face) twice a day at 08:00 and 20:00 Beijing time,
+# This fork: `sources` (X and Hugging Face) twice a day at 08:00 and 18:00 Beijing time,
 # `daily` (everything else) once at 09:30. New sites are skipped (the AIsa whois filter
 # is broken upstream since 2026-10-06).
 #
@@ -19,7 +19,7 @@ name: New-term radar
 
 on:
   schedule:
-    - cron: "0 0,12 * * *"   # sources, 08:00 and 20:00 Beijing
+    - cron: "0 0,10 * * *"   # sources, 08:00 and 18:00 Beijing
     - cron: "30 1 * * *"     # daily, 09:30 Beijing
   workflow_dispatch:
     inputs:
