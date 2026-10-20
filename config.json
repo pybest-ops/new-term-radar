@@ -2,8 +2,7 @@
   "lang": "zh",
 
   "x_accounts": {
-    "labs": ["AnthropicAI", "claudeai", "OpenAI", "OpenAIDevs", "GoogleAIStudio",
-             "Alibaba_Qwen", "deepseek_ai", "Kimi_Moonshot", "Zai_org", "cursor_ai"],
+    "labs": [],
     "bloggers": ["dotey", "op7418", "simonw", "swyx", "karpathy"]
   },
 

@@ -2,7 +2,8 @@ name: New-term radar
 
 # This fork: `daily` twice a day (08:00 and 18:00 Beijing time), X and Hugging Face
 # included, no separate `sources` run. New sites are skipped (the AIsa whois filter is
-# broken upstream since 2026-10-06).
+# broken upstream since 2026-10-06). The weekly signals (revenue, asks, sellers) run
+# only at 08:00, so Monday does not pay for them twice.
 #
 # Off until you opt in: set the repository variable RADAR_ENABLED to "true"
 # (Settings > Secrets and variables > Actions > Variables), add the secret AISA_API_KEY,
@@ -66,9 +67,11 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           RADAR_EMAIL_TO: ${{ secrets.RADAR_EMAIL_TO }}
+          # 18:00 那次跳过周任务（revenue/asks/sellers），避免周一 08:00 已跑过后再重复花钱
+          SKIP: ${{ github.event.schedule == '0 10 * * *' && 'newsites,revenue,asks,sellers' || 'newsites' }}
         run: |
           if [ "$COMMAND" = "daily" ]; then
-            python -m radar daily --skip newsites --out report.md ${RADAR_EMAIL_TO:+--mail}
+            python -m radar daily --skip "$SKIP" --out report.md ${RADAR_EMAIL_TO:+--mail}
           else
             python -m radar sources --out report.md ${RADAR_EMAIL_TO:+--mail}
           fi
